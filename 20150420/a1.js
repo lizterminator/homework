@@ -23,10 +23,16 @@ function amountValidation(amount){
 	};
 	return true;
 }
-
+var addToTable = function(){
+	if(validataAll() === true){
+		//add to table
+	}
+}
 var validataAll = function(){
 	var nameEle = document.getElementById('name');
 	var name = nameEle.value;
 	alert(nameValidation(name));
+
+	return true;
 }
 
