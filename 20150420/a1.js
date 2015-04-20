@@ -23,3 +23,10 @@ function amountValidation(amount){
 	};
 	return true;
 }
+
+var validataAll = function(){
+	var nameEle = document.getElementById('name');
+	var name = nameEle.value;
+	alert(nameValidation(name));
+}
+
