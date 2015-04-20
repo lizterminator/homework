@@ -10,16 +10,16 @@
 	</style>
 </head>
 <body>
-		salesName:     <input type="text" id="name"><span class="warning"></span><br/>
-		salesID:       <input type="text" id="id"><span class="warning"></span><br/>
-		Mercedes Benz: <input type="text" id="benz"><span class="warning"></span><br/>
-		Audi:          <input type="text" id="audi"><span class="warning"></span><br/>
-		Porsche:       <input type="text" id="porsche"><span class="warning"></span><br/>
-		BMW:           <input type="text" id="bmw"><span class="warning"></span><br/>
-		<button id="add" onClick="addToTable();">add</button>
+		salesName:     <input type="text" id="name"><span id="warning_name" class="warning"></span><br/>
+		salesID:       <input type="text" id="id"><span id="warning_id" class="warning"></span><br/>
+		Mercedes Benz: <input type="text" id="benz"><span id="warning_benz" class="warning"></span><br/>
+		Audi:          <input type="text" id="audi"><span id="warning_audi" class="warning"></span><br/>
+		Porsche:       <input type="text" id="porsche"><span id="warning_porsche" class="warning"></span><br/>
+		BMW:           <input type="text" id="bmw"><span id="warning_bmw" class="warning"></span><br/>
+		<button id="add">add</button>
 
 		<h4>Table 1: Car Sales</h4>
-			<table border="1">
+			<table border="1" id="carSalesTable">
 				<tr>
 				  <th>salesName</th>
 				  <th>salesID</th>
