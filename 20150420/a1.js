@@ -7,19 +7,53 @@ var Table = (function() {
 	var ele = _('carSalesTable');
 
 	var persons = [];
-	var bestSalesPerson = []; //may have some 
+	var bestSalesPerson = null; //may have some 
+	var sales = [0.0,0.0,0.0,0.0];
+	function showSummery(){
+		// _('totalSales').innerHTML = sales;
+		// _('bestSalesPerson').innerHTML = bestSalesPerson.salesName + ' who sells '+bestSalesPerson.salesAmount;
+		var bestSellingCar = '';
+		var max = 0.0,maxIndex=0;
+		for (var i = 0; i < sales.length; i++) {
+			if(sales[i] > max ){
+				max = sales[i];
+				maxIndex = i;
+			}
+		};
+		switch(maxIndex){
+			case 0:
+				bestSellingCar = 'Mercedes Benz';
+				break;
+			case 1:
+				bestSellingCar = 'Audi';
+				break;
+			case 2:
+				bestSellingCar = 'Porsche';
+				break;
+			case 3:
+				bestSellingCar = 'BMW';
+				break;
+		}
+
+		_('summery').innerHTML = 'The best salesperson of the month is '+bestSalesPerson.salesName+', with the sales amount of $'+bestSalesPerson.total+'K.<br>'
+			+'The best-selling car of the month is '+bestSellingCar+', with the sales amount of $'+max+'K.';
+	}
+
 	return {
 		addChild: function(person) {
 			persons.push(person);
+			
+			for (var i = 0; i < sales.length; i++) {
+				sales[i] +=person.salesAmount[i];
+			};
 
-			if (bestSalesPerson.length === 0) {
-				bestSalesPerson.push(person);
+			if (!bestSalesPerson) {
+				bestSalesPerson = person;
 			} else {
-				if (bestSalesPerson[0].total < person.total) {
-					bestSalesPerson = [];
-					bestSalesPerson.push(person);
-				} else if (bestSalesPerson[0].total == person.total) {
-					bestSalesPerson.push(person);
+				if (bestSalesPerson.total < person.total) {
+					bestSalesPerson = person;
+				}else if(bestSalesPerson.total == person.total){
+					//equel strategy
 				}
 			}
 			var tr = document.createElement('tr');
@@ -41,9 +75,8 @@ var Table = (function() {
 			tr.appendChild(td);
 
 			ele.appendChild(tr);
-		},
-		getBestSalesPerson: function() {
-			return bestSalesPerson;
+
+			showSummery();
 		}
 
 	}
@@ -57,7 +90,7 @@ function SalesPerson(config) {
 
 	var total = 0.0;
 	for (var i = 0; i < this.salesAmount.length; i++) {
-		result += parseFloat(this.salesAmount[i]);
+		total += this.salesAmount[i];
 	};
 	this.total = total;
 }
@@ -140,10 +173,10 @@ addBtn.addEventListener('click', function(e) {
 
 	var amount = [];
 
-	amount.push(_('benz').value);
-	amount.push(_('audi').value);
-	amount.push(_('porsche').value);
-	amount.push(_('bmw').value);
+	amount.push(parseFloat(_('benz').value));
+	amount.push(parseFloat(_('audi').value));
+	amount.push(parseFloat(_('porsche').value));
+	amount.push(parseFloat(_('bmw').value));
 
 	var person = new SalesPerson({
 		salesName: name,
